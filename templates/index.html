@@ -72,15 +72,25 @@
                 `<p><strong>${msg.role}:</strong> ${msg.content}</p>`
             ).join('');
         }
+
+        window.addEventListener('DOMContentLoaded', (event) => {
+            fetch('/get-use-model')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('useModelValue').textContent = data.use_model;
+                });
+        });
+
     </script>
 </head>
 <body>
     <h1>我的聊天机器人</h1>
-    <h2>你的挑战:你提交的季度计划非常差，内容很少，目标也很低，老板很生气!</h2>
+    <h2>你的挑战:正在和女友看电影，老板来了加班电话，怎么才能不去加班又让老板开心</h2>
     <input type="text" id="messageInput" placeholder="输入消息...">
     <button onclick="sendMessage()">发送</button>
     <div id="conversation"></div>
     <h1>以下为Debug信息：</h1>
+    <h2>Model used: <span id="useModelValue"></span></h2>
     <h2>System message：</h2>
     <div id="sysContent"></div>
     <h2>First Assistant message：</h2>

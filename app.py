@@ -7,6 +7,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 zhipu_apikey = os.getenv('ZHIPU_API_KEY')
+use_model = "glm-4" #GLM-4
+#use_model = "glm-3-turbo" #GLM-3-TURBO
 
 app = Flask(__name__)
 
@@ -33,12 +35,16 @@ def get_markdown_content(file_path):
     else:
         return jsonify({"content": "Markdown 文件不存在"})
 
+@app.route('/get-use-model')
+def get_use_model():
+    return jsonify({"use_model": use_model})
+
 @app.route('/chat', methods=['POST'])
 def chat():
     data = request.json
     try:
         response = client.chat.completions.create(
-            model="glm-4",
+            model=use_model,
             messages=data['messages']
         )
         # 提取文本信息
