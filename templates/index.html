@@ -81,11 +81,28 @@
                 });
         });
 
+
+        window.addEventListener('DOMContentLoaded', (event) => {
+            fetch('/case')
+                .then(response => response.json())
+                .then(data => {
+                    // 将转义过的换行和双引号转换回来
+                    const caseContent = data.content.replace(/\\n/g, '<br>').replace(/\\"/g, '"');
+                    document.getElementById('caseContent').innerHTML = caseContent;
+                })
+                .catch(error => {
+                    console.error('Error fetching the case content:', error);
+                });
+        });
+
+
     </script>
 </head>
 <body>
     <h1>我的聊天机器人</h1>
-    <h2>你的挑战:正在和女友看电影，老板来了加班电话，怎么才能不去加班又让老板开心</h2>
+    <h2>你的挑战:</h2>
+    <div id="caseContent"></div>
+    <h1></h1>
     <input type="text" id="messageInput" placeholder="输入消息...">
     <button onclick="sendMessage()">发送</button>
     <div id="conversation"></div>

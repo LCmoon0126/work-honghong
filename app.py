@@ -25,6 +25,11 @@ def get_ass_prompt():
     #print("Request received for ass prompt")
     return get_markdown_content('prompt/prompt-ass.md')
 
+@app.route('/case')
+def case():
+    #print("Request received for ass prompt")
+    return get_markdown_content('prompt/case.md')
+
 def get_markdown_content(file_path):
     if os.path.exists(file_path):
         with open(file_path, 'r', encoding='utf-8') as file:
